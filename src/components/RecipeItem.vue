@@ -1,6 +1,8 @@
 <template>
     <div class="card">
-        <h2>{{props.title}}</h2><button @click="increaseFontSize">Enlarge Text</button>
+        <h2>{{props.title}}</h2>
+        <button @click="() => increaseFontSize(1)">Zoom In</button>
+        <button @click="() => decreaseFontSize(1)">Zoom Out</button>
         <div class="card-info">
             <h3>Instructions</h3>
             <p>{{props.instructions}}</p>
@@ -26,11 +28,15 @@
         ingredients:  Array
     })
 
-    const emit = defineEmits(['enlarge-text'])
+    const emit = defineEmits(['enlarge-text', 'reduce-text'])
 
 
-    function increaseFontSize() {
-        emit('enlarge-text')
+    function increaseFontSize(val) {
+        emit('enlarge-text', val)
+    }
+
+    function decreaseFontSize(val) {
+        emit('reduce-text', val)
     }
     
 </script>

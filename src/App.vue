@@ -91,7 +91,7 @@ const buttonText = ref('')
   <main>
     <GreetingBox>Im starting to get the hang of things!</GreetingBox>
     <div :style="{fontSize: recipeFontSize + 'px'}">
-      <RecipeItem v-for="item in recipes" v-bind="item"  :key="item.id" @enlarge-text="recipeFontSize += 0.1"/>
+      <RecipeItem v-for="item in recipes" v-bind="item"  :key="item.id" @enlarge-text="(n) => recipeFontSize += n" @reduce-text="(n) => recipeFontSize -= n"/>
     </div>
     <!-- <input v-model="buttonText"> -->
     <!-- <ButtonElement :title="buttonText"/> -->
