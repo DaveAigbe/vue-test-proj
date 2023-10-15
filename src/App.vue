@@ -1,6 +1,7 @@
 <script setup>
 import ButtonElement from './components/ButtonElement.vue';
 import CheckboxElement from './components/CheckboxElement.vue';
+import DynamicList from './components/DynamicList.vue';
 import GreetingBox from './components/GreetingBox.vue';
 import RecipeItem from './components/RecipeItem.vue';
 import { ref } from 'vue';
@@ -83,6 +84,8 @@ instructions: `
  
 ]
 
+const fruits = ['apple', 'orange', 'grape', 'melon', 'pineapple', 'guava', 'tamarind', 'pomegranate', 'lemon']
+
 const recipeFontSize = ref(12)
 const buttonText = ref('')
 const isChecked = ref(false)
@@ -101,6 +104,9 @@ function updateIsChecked(v) {
       <div v-if="isChecked" style="color: green; padding: 4px; background-color:white;">
         Checkbox Active
       </div>
+    </div>
+    <div>
+      <DynamicList :list-values="fruits"/>
     </div>
     <div :style="{fontSize: recipeFontSize + 'px'}">
       <RecipeItem v-for="item in recipes" v-bind="item"  :key="item.id" @enlarge-text="(n) => recipeFontSize += n" @reduce-text="(n) => recipeFontSize -= n"/>
