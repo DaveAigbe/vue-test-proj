@@ -1,5 +1,6 @@
 <script setup>
 import ButtonElement from './components/ButtonElement.vue';
+import CheckboxElement from './components/CheckboxElement.vue';
 import GreetingBox from './components/GreetingBox.vue';
 import RecipeItem from './components/RecipeItem.vue';
 import { ref } from 'vue';
@@ -84,15 +85,27 @@ instructions: `
 
 const recipeFontSize = ref(12)
 const buttonText = ref('')
+const isChecked = ref(false)
+
+function updateIsChecked(v) {
+  isChecked.value = v
+}
 
 </script>
 
 <template>
   <main>
     <GreetingBox>Im starting to get the hang of things!</GreetingBox>
+    <div>
+      <CheckboxElement :is-checked="isChecked" @update-is-checked="(v) => updateIsChecked(v)" />
+      <div v-if="isChecked" style="color: green; padding: 4px; background-color:white;">
+        Checkbox Active
+      </div>
+    </div>
     <div :style="{fontSize: recipeFontSize + 'px'}">
       <RecipeItem v-for="item in recipes" v-bind="item"  :key="item.id" @enlarge-text="(n) => recipeFontSize += n" @reduce-text="(n) => recipeFontSize -= n"/>
     </div>
+
     <!-- <input v-model="buttonText"> -->
     <!-- <ButtonElement :title="buttonText"/> -->
   </main>
