@@ -1,8 +1,11 @@
 <script setup>
-import ButtonElement from './components/ButtonElement.vue';
+// import ButtonElement from './components/ButtonElement.vue';
 import CheckboxElement from './components/CheckboxElement.vue';
+import ComputedCustomInput from './components/ComputedCustomInput.vue';
+import CustomInput from './components/CustomInput.vue';
 import DynamicList from './components/DynamicList.vue';
 import GreetingBox from './components/GreetingBox.vue';
+import LoginBox from './components/LoginBox.vue';
 import RecipeItem from './components/RecipeItem.vue';
 import { ref } from 'vue';
 
@@ -87,27 +90,55 @@ instructions: `
 const fruits = ['apple', 'orange', 'grape', 'melon', 'pineapple', 'guava', 'tamarind', 'pomegranate', 'lemon']
 
 const recipeFontSize = ref(12)
-const buttonText = ref('')
+// const buttonText = ref('')
 const isChecked = ref(false)
+const searchText = ref('')
+const username = ref('')
+const password = ref('')
 
 function updateIsChecked(v) {
   isChecked.value = v
 }
+
+function loginValid() {
+  console.log((username.value === "admin") && (password.value === "123qwe"))
+  return (username.value === "admin") && (password.value === "123qwe")
+}
+
 
 </script>
 
 <template>
   <main>
     <GreetingBox>Im starting to get the hang of things!</GreetingBox>
+    <!-- Sep -->
     <div>
       <CheckboxElement :is-checked="isChecked" @update-is-checked="(v) => updateIsChecked(v)" />
       <div v-if="isChecked" style="color: green; padding: 4px; background-color:white;">
         Checkbox Active
       </div>
     </div>
+    <!-- Sep -->
     <div>
       <DynamicList :list-values="fruits"/>
     </div>
+    <!-- Sep -->
+    <CustomInput v-model="searchText"/>
+    <br>
+    <ComputedCustomInput v-model="searchText"/>
+    <div style="color: red;">
+      {{ searchText }}
+    </div>
+    <!-- Sep -->
+    <LoginBox v-model:username="username" v-model:password="password"/>
+    <div>
+      {{ username }}
+      {{ password }}
+    </div>
+    <div v-if="loginValid">
+      <h3 style="color: green;">Login Successful</h3>
+    </div>
+    <!-- Sep -->
     <div :style="{fontSize: recipeFontSize + 'px'}">
       <RecipeItem v-for="item in recipes" v-bind="item"  :key="item.id" @enlarge-text="(n) => recipeFontSize += n" @reduce-text="(n) => recipeFontSize -= n"/>
     </div>
